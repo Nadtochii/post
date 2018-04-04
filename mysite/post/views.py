@@ -10,6 +10,9 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
+from post.models import Blog
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 @login_required
 def home(request):
@@ -53,3 +56,28 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account')
     else:
         return HttpResponse('Activation link is invalid!')
+
+@csrf_exempt
+def create_post(request):
+    if request.method == 'POST':
+        post_text = request.POST.get('the_post')
+        response_data = {}
+
+        post = Blog(body=post_text)
+        post.save()
+
+        response_data['result'] = 'Create post successful!'
+        # response_data['postpk'] = post.pk
+        response_data['body'] = post.body
+        # response_data['created'] = post.created.strftime('%B %d, %Y %I:%M %p')
+        # response_data['author'] = post.author.username
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )

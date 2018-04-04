@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Welcome!</h2>
+    <h2>Welcome!</h2>
+    <h2>Add your Post</h2>
+    <form action="/create_post/" method="POST" id="post-form">
+        {% csrf_token %}
+        <textarea name="body" id="post-text"></textarea>
+        <input type="submit" value="Post">
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    {% load static %}
+    <script src="{% static 'main.js' %}"></script>
+
 {% endblock %}

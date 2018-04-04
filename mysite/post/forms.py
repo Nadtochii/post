@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from post.models import Blog
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200)
@@ -23,4 +24,16 @@ class SignupForm(UserCreationForm):
         help_texts = {
             'username': None,
             'email': None,
+        }
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ['body']
+        widgets = {
+            'body': forms.TextInput(attrs={
+                'id': 'post-text',
+                'required': True,
+                'placeholder': 'Say something...'
+            }),
         }
