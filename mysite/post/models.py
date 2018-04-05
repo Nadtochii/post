@@ -21,5 +21,5 @@ def update_user_profile(sender, instance, created, **kwargs):
 class Blog(models.Model):
     title = models.CharField(max_length=100)
     body = models.TextField()
-    posted = models.DateField(db_index=True, auto_now_add=True)
+    posted = models.DateTimeField(db_index=True, auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

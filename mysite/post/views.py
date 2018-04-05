@@ -16,7 +16,7 @@ import json
 
 @login_required
 def home(request):
-    posts = Blog.objects.all()
+    posts = Blog.objects.all().order_by('-posted')
     return render(request, 'home.html', {'posts': posts})
 
 def signup(request):
