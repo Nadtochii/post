@@ -4,4 +4,4 @@ django-bootstrap-datepicker==1.2.3
 gunicorn==19.7.1
 pytz==2018.3
 whitenoise==3.3.1
-psycopg2==2.4.4
+psycopg2==2.7.2
