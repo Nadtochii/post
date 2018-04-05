@@ -10,7 +10,7 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
-from post.models import Blog, Profile
+from post.models import Blog, Profile, Comments
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -97,3 +97,37 @@ def update_user(request):
         user.save()
 
         return redirect('/')
+
+def show_post(request, post_id):
+    post = Blog.objects.get(id=post_id)
+    comments = Comments.objects.filter(post_id=post_id).order_by('-posted')
+    print("1111111111111111")
+    print(post)
+    print(comments)
+    return render(request, 'post.html', {'post': post, 'comments': comments})
+
+@csrf_exempt
+def add_comment(request):
+    if request.method == "POST":
+        comment_text = request.POST.get('comment')
+        post_id = request.POST.get('post_id')
+        print("11111111111111")
+        print(post_id)
+        response_data = {}
+        comment = Comments(text=comment_text, user=request.user, post_id=post_id)
+        comment.save()
+
+        response_data['result'] = "Success!"
+        response_data['text'] = comment.text
+        response_data['posted'] = comment.posted.strftime('%B %d, %Y %I:%M %p')
+        response_data['user'] = comment.user.username
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"ERROR"}),
+            content_type="application/json"
+        )

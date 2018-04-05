@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from post.models import Blog
+from post.models import Blog, Comments
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200)
@@ -42,3 +42,8 @@ class BlogForm(forms.ModelForm):
                 # 'placeholder': 'Say something...'
             }),
         }
+
+class CommentsForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ['text']

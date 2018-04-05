@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <strong>{{ post.title }}</strong> - <em>{{ post.user.username }}</em> - <span>{{ post.posted }}</span><br>
+        {{ post.body }}
+    <form action="/add_comment/" method="POST" id="add-comment">
+        {% csrf_token %}
+        Comment: <input type="text" name="comment" id="comment"><br>
+        <input type="hidden" id="post-id" name="post_id" value="{{ post.id }}">
+        <input type="submit" value="Post">
+    </form>
+    <h2>Comments:</h2>
+    <ul id="discussion">
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.text }}</strong> - <em>{{ comment.user.username }}</em> - <span>{{ comment.posted }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        {% load static %}
+    <script src="{% static 'main.js' %}"></script>
+{% endblock %}

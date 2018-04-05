@@ -17,10 +17,10 @@
         <input type="submit" value="Post">
     </form>
     <ul id="talk">
-        {% for msg in posts %}
+        {% for post in posts %}
             <li>
-                <strong>{{ msg.title }}</strong> - <em>{{ msg.user.username }}</em> - <span>{{ msg.posted }}</span><br>
-                {{ msg.body }}
+                <a href="post/{{ post.id }}"><strong>{{ post.title }}</strong></a><br>
+                {{ post.body }}
             </li>
         {% endfor %}
     </ul>

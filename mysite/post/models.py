@@ -24,3 +24,9 @@ class Blog(models.Model):
     body = models.TextField()
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    text = models.CharField(max_length=300)
+    posted = models.DateTimeField(db_index=True, auto_now_add=True)

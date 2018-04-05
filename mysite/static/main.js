@@ -1,11 +1,18 @@
 $('#post-form').on('submit', function(event){
     event.preventDefault();
+    console.log("3333333333333333333333333333");
     create_post();
+});
+
+$('#add-comment').on('submit', function(event){
+    event.preventDefault();
+    console.log("1111111111111111111");
+    add_comment();
 });
 
 function create_post() {
     $.ajax({
-        url : "create_post/",
+        url: "create_post/",
         type : "POST",
         data : { post_title: $("#post-title").val(), post_text: $('#post-text').val() },
 
@@ -26,3 +33,21 @@ function create_post() {
         }
     });
 };
+
+function add_comment() {
+    $.ajax({
+        url: "/add_comment/",
+        type: "POST",
+        data: { comment: $("#comment").val(), post_id: $("#post-id").val() },
+
+        success: function(json) {
+            $('#comment').val('');
+            console.log(json);
+            $('#discussion').prepend("<li><strong>"+json.text+"</strong> - <em>"+json.user+"</em> - <span>"+json.posted+"</span></li>");
+            console.log("success");
+        },
+        error: function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    });
+}
