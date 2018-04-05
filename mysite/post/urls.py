@@ -11,6 +11,6 @@ urlpatterns = [
         views.activate, name='activate'),
     url(r'^create_post/$', views.create_post),
     url(r'^update_user/$', views.update_user),
-    url(r'^post/(\d+)', views.show_post),
+    url(r'^post/(\d+)/?$', views.show_post),
     url(r'^add_comment/$', views.add_comment),
 ]

@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from post.models import Blog, Profile, Comments
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def home(request):
@@ -100,10 +101,17 @@ def update_user(request):
 
 def show_post(request, post_id):
     post = Blog.objects.get(id=post_id)
-    comments = Comments.objects.filter(post_id=post_id).order_by('-posted')
-    print("1111111111111111")
-    print(post)
-    print(comments)
+    comment_list = Comments.objects.filter(post_id=post_id).order_by('-posted')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(comment_list, 5)
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
     return render(request, 'post.html', {'post': post, 'comments': comments})
 
 @csrf_exempt
