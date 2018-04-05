@@ -1,0 +1,6 @@
+dj-database-url==0.5.0
+Django==1.11.2
+django-bootstrap-datepicker==1.2.3
+gunicorn==19.7.1
+pytz==2018.3
+whitenoise==3.3.1
