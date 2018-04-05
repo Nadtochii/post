@@ -2,6 +2,12 @@
 
 {% block content %}
     <h2>Welcome {{ user.username }}!</h2>
+    <span id="current-location">Current location: {{ location }}</span>
+    <form action="/update_user/" method="POST" id="update-user">
+        {% csrf_token %}
+        Location: <input type="text" name="location" id="location"><br>
+        <input type="submit" value="Change">
+    </form>
     <h2>Add your Post</h2>
     <form action="/create_post/" method="POST" id="post-form">
         {% csrf_token %}

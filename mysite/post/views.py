@@ -10,14 +10,15 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
-from post.models import Blog
+from post.models import Blog, Profile
 from django.views.decorators.csrf import csrf_exempt
 import json
 
 @login_required
 def home(request):
     posts = Blog.objects.all().order_by('-posted')
-    return render(request, 'home.html', {'posts': posts})
+    user = Profile.objects.get(user_id=request.user.id)
+    return render(request, 'home.html', {'posts': posts, 'location': user.location})
 
 def signup(request):
     if request.method == 'POST':
@@ -83,3 +84,16 @@ def create_post(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+@csrf_exempt
+def update_user(request):
+    if request.method == 'POST':
+        location = request.POST.get('location')
+        # response_data = {}
+        print("11111111111111111")
+        print(request.user.id)
+        user = Profile.objects.get(user_id=request.user.id)
+        user.location = location
+        user.save()
+
+        return redirect('/')
