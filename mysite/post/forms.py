@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from post.models import Blog, Comments
+from post.models import Blog, Comments, Profile
+from bootstrap_datepicker.widgets import DatePicker
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200)
@@ -47,3 +48,8 @@ class CommentsForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ['text']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['birth_date', 'location']

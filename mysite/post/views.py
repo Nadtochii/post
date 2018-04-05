@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm
+from .forms import SignupForm, ProfileForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -19,7 +19,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def home(request):
     posts = Blog.objects.all().order_by('-posted')
     user = Profile.objects.get(user_id=request.user.id)
-    return render(request, 'home.html', {'posts': posts, 'location': user.location})
+    return render(request, 'home.html', {'posts': posts, 'user': user})
 
 def signup(request):
     if request.method == 'POST':
@@ -89,13 +89,15 @@ def create_post(request):
 @csrf_exempt
 def update_user(request):
     if request.method == 'POST':
-        location = request.POST.get('location')
-        # response_data = {}
-        print("11111111111111111")
-        print(request.user.id)
-        user = Profile.objects.get(user_id=request.user.id)
-        user.location = location
-        user.save()
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            location = request.POST.get('location')
+            bdate = request.POST.get('birth_day')
+            user = Profile.objects.get(user_id=request.user.id)
+
+            user.location = location if location else user.location
+            user.birth_date = bdate if bdate else user.birth_date
+            user.save()
 
         return redirect('/')
 

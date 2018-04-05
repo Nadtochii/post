@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').datepicker();
+        });
+    </script>
     <h2>Welcome {{ user.username }}!</h2>
-    <span id="current-location">Current location: {{ location }}</span>
+    <span id="current-location">Current location: {{ user.location }}</span>
     <form action="/update_user/" method="POST" id="update-user">
         {% csrf_token %}
         Location: <input type="text" name="location" id="location"><br>
+        Birth Day:<input type="date" name="birth_day" id="birthday" value="{{ user.birth_date|date:'Y-m-d' }}"><br>
         <input type="submit" value="Change">
     </form>
     <h2>Add your Post</h2>
