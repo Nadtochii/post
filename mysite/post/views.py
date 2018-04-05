@@ -61,10 +61,11 @@ def activate(request, uidb64, token):
 @csrf_exempt
 def create_post(request):
     if request.method == 'POST':
-        post_text = request.POST.get('the_post')
+        post_title = request.POST.get('post_title')
+        post_text = request.POST.get('post_text')
         response_data = {}
 
-        post = Blog(body=post_text, user=request.user)
+        post = Blog(title=post_title, body=post_text, user=request.user)
         post.save()
 
         response_data['result'] = 'Create post successful!'

@@ -5,8 +5,8 @@
     <h2>Add your Post</h2>
     <form action="/create_post/" method="POST" id="post-form">
         {% csrf_token %}
-
-        <textarea name="body" id="post-text"></textarea>
+        Title: <input type="text" name="title" id="post-title"><br>
+        Body: <input name="body" id="post-text"><br>
         <div id="results"></div>
         <input type="submit" value="Post">
     </form>

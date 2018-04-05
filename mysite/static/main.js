@@ -7,11 +7,12 @@ function create_post() {
     $.ajax({
         url : "create_post/",
         type : "POST",
-        data : { the_post : $('#post-text').val() },
+        data : { post_title: $("#post-title").val(), post_text: $('#post-text').val() },
 
         // handle a successful response
         success : function(json) {
             $('#post-text').val('');
+            $('#post-title').val('');
             console.log(json); // log the returned json to the console
             $("#talk").prepend("<li><strong>"+json.body+"</strong> - <em> "+json.user+"</em> - <span> "+json.created+"</span></li>");
             console.log("success"); // another sanity check

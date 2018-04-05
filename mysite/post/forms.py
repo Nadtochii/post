@@ -29,11 +29,16 @@ class SignupForm(UserCreationForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['body']
+        fields = ['title', 'body']
         widgets = {
+            'title': forms.TextInput(attrs={
+                'id': 'post-title',
+                'required': True,
+                # 'placeholder': 'Post title'
+            }),
             'body': forms.TextInput(attrs={
                 'id': 'post-text',
                 'required': True,
-                'placeholder': 'Say something...'
+                # 'placeholder': 'Say something...'
             }),
         }
