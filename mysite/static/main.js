@@ -1,21 +1,19 @@
 $('#post-form').on('submit', function(event){
     event.preventDefault();
-    console.log("form submitted!")  // sanity check
     create_post();
 });
 
 function create_post() {
-    console.log("create post is working!") // sanity check
-    console.log("xxxxxxx " + $('#post-text').val());
     $.ajax({
-        url : "create_post/", // the endpoint
-        type : "POST", // http method
-        data : { the_post : $('#post-text').val() }, // data sent with the post request
+        url : "create_post/",
+        type : "POST",
+        data : { the_post : $('#post-text').val() },
 
         // handle a successful response
         success : function(json) {
-            $('#post-text').val(''); // remove the value from the input
+            $('#post-text').val('');
             console.log(json); // log the returned json to the console
+            $("#talk").prepend("<li><strong>"+json.body+"</strong> - <em> "+json.user+"</em> - <span> "+json.created+"</span></li>");
             console.log("success"); // another sanity check
         },
 

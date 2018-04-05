@@ -16,7 +16,8 @@ import json
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    posts = Blog.objects.all()
+    return render(request, 'home.html', {'posts': posts})
 
 def signup(request):
     if request.method == 'POST':
@@ -63,14 +64,14 @@ def create_post(request):
         post_text = request.POST.get('the_post')
         response_data = {}
 
-        post = Blog(body=post_text)
+        post = Blog(body=post_text, user=request.user)
         post.save()
 
         response_data['result'] = 'Create post successful!'
         # response_data['postpk'] = post.pk
         response_data['body'] = post.body
-        # response_data['created'] = post.created.strftime('%B %d, %Y %I:%M %p')
-        # response_data['author'] = post.author.username
+        response_data['created'] = post.posted.strftime('%B %d, %Y %I:%M %p')
+        response_data['user'] = post.user.username
 
         return HttpResponse(
             json.dumps(response_data),
