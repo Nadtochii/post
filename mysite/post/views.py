@@ -69,7 +69,7 @@ def create_post(request):
         post.save()
 
         response_data['result'] = 'Create post successful!'
-        # response_data['postpk'] = post.pk
+        response_data['title'] = post.title
         response_data['body'] = post.body
         response_data['created'] = post.posted.strftime('%B %d, %Y %I:%M %p')
         response_data['user'] = post.user.username

@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Welcome!</h2>
+    <h2>Welcome {{ user.username }}!</h2>
     <h2>Add your Post</h2>
     <form action="/create_post/" method="POST" id="post-form">
         {% csrf_token %}
         Title: <input type="text" name="title" id="post-title"><br>
-        Body: <input name="body" id="post-text"><br>
+        Body: <textarea name="body" id="post-text"></textarea><br>
         <div id="results"></div>
         <input type="submit" value="Post">
     </form>
     <ul id="talk">
         {% for msg in posts %}
-            <li><strong>{{ msg.body }}</strong> - <em>{{ msg.user.username }}</em> - <span>{{ msg.posted }}</span></li>
+            <li>
+                <strong>{{ msg.title }}</strong> - <em>{{ msg.user.username }}</em> - <span>{{ msg.posted }}</span><br>
+                {{ msg.body }}
+            </li>
         {% endfor %}
     </ul>
 

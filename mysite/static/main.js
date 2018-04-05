@@ -14,7 +14,7 @@ function create_post() {
             $('#post-text').val('');
             $('#post-title').val('');
             console.log(json); // log the returned json to the console
-            $("#talk").prepend("<li><strong>"+json.body+"</strong> - <em> "+json.user+"</em> - <span> "+json.created+"</span></li>");
+            $("#talk").prepend("<li><strong>"+json.title+"</strong> - <em> "+json.user+"</em> - <span> "+json.created+"</span><br>"+json.body+"</li>");
             console.log("success"); // another sanity check
         },
 
