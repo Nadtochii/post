@@ -6,7 +6,7 @@
             $('.datepicker').datepicker();
         });
     </script>
-    <h2>Welcome {{ user_active.username }}!</h2>
+    <h2>Welcome {{ user.username }}!</h2>
     <span id="current-location">Current location: {{ user_active.location }}</span>
     <form action="/update_user/" method="POST" id="update-user">
         {% csrf_token %}
