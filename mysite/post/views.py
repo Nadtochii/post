@@ -102,6 +102,7 @@ def update_user(request):
 
         return redirect('/')
 
+@login_required
 def show_post(request, post_id):
     post = Blog.objects.get(id=post_id)
     comment_list = Comments.objects.filter(post_id=post_id).order_by('-posted')
