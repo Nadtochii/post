@@ -75,6 +75,7 @@ def create_post(request):
         response_data['body'] = post.body
         response_data['created'] = post.posted.strftime('%B %d, %Y %I:%M %p')
         response_data['user'] = post.user.username
+        response_data['post_id'] = post.id
 
         return HttpResponse(
             json.dumps(response_data),

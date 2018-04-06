@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="/">Back to Posts</a><br>
+    <!--<a href="/">Back to Posts</a><br>-->
     <strong>{{ post.title }}</strong> - <em>{{ post.user.username }}</em> - <span>{{ post.posted }}</span><br>
         {{ post.body }}
     <form action="/add_comment/" method="POST" id="add-comment">
