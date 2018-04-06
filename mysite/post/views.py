@@ -18,8 +18,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required
 def home(request):
     posts = Blog.objects.all().order_by('-posted')
-    user = Profile.objects.get(user_id=request.user.id)
-    return render(request, 'home.html', {'posts': posts, 'user': user})
+    user_active = Profile.objects.get(user_id=request.user.id)
+    return render(request, 'home.html', {'posts': posts, 'user_active': user_active})
 
 def signup(request):
     if request.method == 'POST':

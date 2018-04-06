@@ -6,12 +6,12 @@
             $('.datepicker').datepicker();
         });
     </script>
-    <h2>Welcome {{ user.username }}!</h2>
-    <span id="current-location">Current location: {{ user.location }}</span>
+    <h2>Welcome {{ user_active.username }}!</h2>
+    <span id="current-location">Current location: {{ user_active.location }}</span>
     <form action="/update_user/" method="POST" id="update-user">
         {% csrf_token %}
         Location: <input type="text" name="location" id="location"><br>
-        Birth Day:<input type="date" name="birth_day" id="birthday" value="{{ user.birth_date|date:'Y-m-d' }}"><br>
+        Birth Day:<input type="date" name="birth_day" id="birthday" value="{{ user_active.birth_date|date:'Y-m-d' }}"><br>
         <input type="submit" value="Change">
     </form>
     <h2>Add your Post</h2>
