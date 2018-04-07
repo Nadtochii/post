@@ -44,7 +44,8 @@ function add_comment() {
         success: function(json) {
             $('#comment').val('');
             console.log(json);
-            $('#discussion').prepend("<li><strong>"+json.text+"</strong> - <em>"+json.user+"</em> - <span>"+json.posted+"</span></li>");
+//            $('#discussion').prepend("<li><strong>"+json.text+"</strong> - <em>"+json.user+"</em> - <span>"+json.posted+"</span></li>");
+            $('#discussion').prepend("<li class=\"list-group-item\"><div class=\"card\" style=\"width: 40rem;\"><div class=\"card-body\"><h6 class=\"card-title\">"+json.user+", "+json.posted+"</h6><p class=\"card-text\">"+json.text+"</p></div></div></li>");
             console.log("success");
         },
         error: function(xhr,errmsg,err) {

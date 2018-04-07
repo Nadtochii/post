@@ -1,45 +1,69 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
     <!--<a href="/">Back to Posts</a><br>-->
-    <strong>{{ post.title }}</strong> - <em>{{ post.user.username }}</em> - <span>{{ post.posted }}</span><br>
-        {{ post.body }}
-    <form action="/add_comment/" method="POST" id="add-comment">
-        {% csrf_token %}
-        Comment: <input type="text" name="comment" id="comment"><br>
-        <input type="hidden" id="post-id" name="post_id" value="{{ post.id }}">
-        <input type="submit" value="Post">
-    </form>
-    <h2>Comments:</h2>
-    <ul id="discussion">
-        {% for comment in comments %}
-            <li>
-                <strong>{{ comment.text }}</strong> - <em>{{ comment.user.username }}</em> - <span>{{ comment.posted }}</span>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ post.user.username }}, {{ post.posted }}</h6>
+                <p class="card-text">{{ post.body }}</p>
+                <form action="/add_comment/" method="POST" id="add-comment">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <input type="text" class="form-control" name="comment" id="comment"><br>
+                        <input type="hidden" id="post-id" name="post_id" value="{{ post.id }}">
+                        <button class="btn btn-primary" type="submit">Add comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h3>Comments:</h3>
+        <ul class="list-group" id="discussion">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <div class="card" style="width: 40rem;">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ comment.user.username }}, {{ comment.posted }}</h6>
+                            <p class="card-text">{{ comment.text }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    {% if comments.has_other_pages %}
-        {% if comments.has_previous %}
-          <a href="?page={{ commentss.previous_page_number }}">&laquo;</a>
-        {% else %}
-          <span>&laquo;</span>
+    <div class="container">
+        {% if comments.has_other_pages %}
+        <nav>
+            <ul class="pagination">
+            {% if comments.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ commentss.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="page-item"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in comments.paginator.page_range %}
+              {% if comments.number == i %}
+                <li class="page-item"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if comments.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ comments.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="page-item"><span>&raquo;</span></li>
+            {% endif %}
+            </ul>
+        </nav>
         {% endif %}
-        {% for i in comments.paginator.page_range %}
-          {% if comments.number == i %}
-            <span>{{ i }} <span class="sr-only">(current)</span></span>
-          {% else %}
-            <a href="?page={{ i }}">{{ i }}</a>
-          {% endif %}
-        {% endfor %}
-        {% if comments.has_next %}
-          <a href="?page={{ comments.next_page_number }}">&raquo;</a>
-        {% else %}
-          <span>&raquo;</span>
-        {% endif %}
-    {% endif %}
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
         {% load static %}
     <script src="{% static 'main.js' %}"></script>
+</div>
 {% endblock %}
