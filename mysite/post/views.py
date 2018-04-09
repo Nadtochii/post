@@ -123,8 +123,6 @@ def add_comment(request):
     if request.method == "POST":
         comment_text = request.POST.get('comment')
         post_id = request.POST.get('post_id')
-        print("11111111111111")
-        print(post_id)
         response_data = {}
         comment = Comments(text=comment_text, user=request.user, post_id=post_id)
         comment.save()

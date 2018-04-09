@@ -10,11 +10,6 @@
 {% bootstrap_messages %}
 
 {% block content %}
-    <script>
-        $(document).ready(function() {
-            $('.datepicker').datepicker();
-        });
-    </script>
 <div class="container">
     <h1>Welcome {{ user.username }}!</h1>
     <div class="container">
@@ -66,18 +61,14 @@
         {% for post in posts %}
       <a href="post/{{ post.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ post.title }}</h5>
-          <small></small>
+          <h4 class="mb-1">{{ post.title }}</h4>
+          <small>{{ post.posted }}</small>
         </div>
         <p class="mb-1">{{ post.body }}</p>
-        <small></small>
+        <small>{{ post.user.username }}</small>
       </a>
         {% endfor %}
     </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    {% load static %}
-    <script src="{% static 'main.js' %}"></script>
 </div>
 {% endblock %}
