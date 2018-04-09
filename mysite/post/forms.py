@@ -34,12 +34,10 @@ class BlogForm(forms.ModelForm):
             'title': forms.TextInput(attrs={
                 'id': 'post-title',
                 'required': True,
-                # 'placeholder': 'Post title'
             }),
             'body': forms.TextInput(attrs={
                 'id': 'post-text',
                 'required': True,
-                # 'placeholder': 'Say something...'
             }),
         }
 
