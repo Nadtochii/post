@@ -24,7 +24,7 @@ function create_post() {
             $('#post-text').val('');
             $('#post-title').val('');
             console.log(json); // log the returned json to the console
-            $("#talk").prepend("<a href=\"post/"+json.id+"\" class=\"list-group-item list-group-item-action flex-column align-items-start\"><div class=\"d-flex w-100 justify-content-between\"><h5 class=\"mb-1\">"+json.title+"</h5><small></small></div><p class=\"mb-1\">"+json.body+"</p><small></small></a>");
+            $("#talk").prepend("<a href=\"post/"+json.id+"\" class=\"list-group-item list-group-item-action flex-column align-items-start\"><div class=\"d-flex w-100 justify-content-between\"><h4 class=\"mb-1\">"+json.title+"</h4><small>"+json.created+"</small></div><p class=\"mb-1\">"+json.body+"</p><small>"+json.user+"</small></a>");
         },
 
         // handle a non-successful response

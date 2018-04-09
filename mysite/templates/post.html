@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container">
-    <!--<a href="/">Back to Posts</a><br>-->
     <div class="container">
+        <a href="/">Back to Posts</a><br>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ post.title }}</h5>
@@ -61,9 +61,5 @@
         </nav>
         {% endif %}
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-        {% load static %}
-    <script src="{% static 'main.js' %}"></script>
 </div>
 {% endblock %}
