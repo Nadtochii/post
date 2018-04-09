@@ -27,6 +27,12 @@
       <div class="container" id="test">
         <ul class="nav nav-pills">
           {% if user.is_authenticated %}
+          <li id="home">
+            <a href="{% url 'home' %}">Home</a>
+          </li>
+          <li id="settings">
+            <a href="{% url 'user_settings' %}">Settings</a>
+          </li>
           <li id="logout">
             <a href="{% url 'logout' %}">Logout</a>
           </li>

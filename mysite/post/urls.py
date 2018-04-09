@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^update_user/$', views.update_user),
     url(r'^post/(\d+)/?$', views.show_post),
     url(r'^add_comment/$', views.add_comment),
+    url(r'^user_settings/$', views.user_settings, name='user_settings'),
 ]

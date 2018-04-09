@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from post.models import Blog, Comments, Profile
-from bootstrap_datepicker.widgets import DatePicker
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200)

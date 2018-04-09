@@ -18,9 +18,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required
 def home(request):
     posts = Blog.objects.all().order_by('-posted')
-    user_active = Profile.objects.get(user_id=request.user.id)
-    return render(request, 'home.html', {'posts': posts, 'user_active': user_active})
-
+    # user_active = Profile.objects.get(user_id=request.user.id)
+    # return render(request, 'home.html', {'posts': posts, 'user_active': user_active})
+    return render(request, 'home.html', {'posts': posts})
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -87,7 +87,7 @@ def create_post(request):
             content_type="application/json"
         )
 
-@csrf_exempt
+# @csrf_exempt
 def update_user(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -100,7 +100,7 @@ def update_user(request):
             user.birth_date = bdate if bdate else user.birth_date
             user.save()
 
-        return redirect('/')
+            return redirect('/user_settings')
 
 @login_required
 def show_post(request, post_id):
@@ -141,3 +141,8 @@ def add_comment(request):
             json.dumps({"ERROR"}),
             content_type="application/json"
         )
+
+@login_required
+def user_settings(request):
+    user_active = Profile.objects.get(user_id=request.user.id)
+    return render(request, 'user_settings.html', {'user_active': user_active})
