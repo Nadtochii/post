@@ -1,37 +1,19 @@
 {% extends 'base.html' %}
 
-    {# Load the tag library #}
-  {% load bootstrap3 %}
-
-  {# Load CSS and JavaScript #}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-
-  {# Display django.contrib.messages as Bootstrap alerts #}
-  {% bootstrap_messages %}
+{% load bootstrap3 %}
 
 {% block content %}
 <div class="container">
-    <!--<h1>Sign up</h1>-->
-      <div style="width:30%">
-        <form method="post">
-          {% csrf_token %}
-          {% for field in form %}
-            <p>
-                {{ field.label_tag }}
-              <div class="form-group">
-                {{ field }}
-              </div>
-              {% if field.help_text %}
-                <small style="color: grey">{{ field.help_text }}</small>
-              {% endif %}
-              {% for error in field.errors %}
-                <p style="color: red">{{ error }}</p>
-              {% endfor %}
-            </p>
-          {% endfor %}
-          <button class="btn btn-primary" type="submit">Sign up</button>
-        </form>
-      </div>
+  <div style="width:30%">
+    <form method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit">Sign up</button>
+    </form>
   </div>
+</div>
+
+<script type="text/javascript">
+  $("#signup").addClass("active");
+</script>
 {% endblock %}

@@ -2,28 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}Post{% endblock %}</title>
+    <title>
+      {% block title %}Post{% endblock %}
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
     {# Load the tag library #}
-  {% load bootstrap3 %}
+    {% load bootstrap3 %}
 
-  {# Load CSS and JavaScript #}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
-  {# Display django.contrib.messages as Bootstrap alerts #}
-  {% bootstrap_messages %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
   </head>
   <body>
     <header>
-      {% if user.is_authenticated %}
-      <div class="container"><h1><a href="{% url 'logout' %}">Logout</a></h1></div>
-      {% else %}
-      <div class="container"><h1><a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a></h1></div>
-      {% endif %}
+      <div class="container" id="test">
+        <ul class="nav nav-pills">
+          {% if user.is_authenticated %}
+          <li id="logout">
+            <a href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li id="login">
+              <a href="{% url 'login' %}">Login</a>
+          </li>
+          <li id="signup">
+            <a href="{% url 'signup' %}">Sign Up</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
     </header>
     <main>
       {% block content %}
       {% endblock %}
     </main>
   </body>
+
+{% load static %}
+    <script src="{% static 'main.js' %}"></script>
 </html>

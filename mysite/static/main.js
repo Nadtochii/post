@@ -1,12 +1,15 @@
+$("#test .nav-pills a").on("click", function(){
+   $("#test .nav-pills").find("li.active").removeClass("active");
+   $(this).parent("li").addClass("active");
+});
+
 $('#post-form').on('submit', function(event){
     event.preventDefault();
-    console.log("3333333333333333333333333333");
     create_post();
 });
 
 $('#add-comment').on('submit', function(event){
     event.preventDefault();
-    console.log("1111111111111111111");
     add_comment();
 });
 
@@ -21,9 +24,7 @@ function create_post() {
             $('#post-text').val('');
             $('#post-title').val('');
             console.log(json); // log the returned json to the console
-//            $("#talk").prepend("<li><a href=\"post/"+json.post_id+"\"><strong>"+json.title+"</strong></a><br>"+json.body+"</li>");
             $("#talk").prepend("<a href=\"post/"+json.id+"\" class=\"list-group-item list-group-item-action flex-column align-items-start\"><div class=\"d-flex w-100 justify-content-between\"><h5 class=\"mb-1\">"+json.title+"</h5><small></small></div><p class=\"mb-1\">"+json.body+"</p><small></small></a>");
-            console.log("success"); // another sanity check
         },
 
         // handle a non-successful response
@@ -44,7 +45,6 @@ function add_comment() {
         success: function(json) {
             $('#comment').val('');
             console.log(json);
-//            $('#discussion').prepend("<li><strong>"+json.text+"</strong> - <em>"+json.user+"</em> - <span>"+json.posted+"</span></li>");
             $('#discussion').prepend("<li class=\"list-group-item\"><div class=\"card\" style=\"width: 40rem;\"><div class=\"card-body\"><h6 class=\"card-title\">"+json.user+", "+json.posted+"</h6><p class=\"card-text\">"+json.text+"</p></div></div></li>");
             console.log("success");
         },
