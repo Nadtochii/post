@@ -105,3 +105,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# migrations
+mysite/mysite/post/migrations/
+mysite/post/migrations/
