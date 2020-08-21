@@ -8,6 +8,5 @@ urlpatterns = [
     path('<int:pk>/', views.ItemDetail.as_view(), name='item-detail'),
     path('<int:pk>/delete/', views.ItemDelete.as_view(), name='item-delete'),
     path('<int:pk>/comment/', views.CommentCreate.as_view(), name='comment-add'),
-    # path('<int:pk>/comment/<int:pk>/>delete/', views.CommentDelete.as_view(), name='comment-delete'),
 ]
 
