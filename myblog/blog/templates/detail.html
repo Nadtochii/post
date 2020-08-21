@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container">
+        <a href="/">Back to Posts</a><br>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <p class="card-text">{{ object.body }}</p>
+                <form action="comment/" method="POST" id="comment-form">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <input type="text" class="form-control" name="body" id="comment-body"><br>
+                        <input type="hidden" id="item" name="item" value="{{ object.id }}">
+                    </div>
+                        <button class="btn btn-primary" type="submit">Add comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h3>Comments:</h3>
+        <ul class="list-group" id="discussion">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <div class="card" style="width: 40rem;">
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.body }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
